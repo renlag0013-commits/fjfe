@@ -41,10 +41,19 @@ setthreadidentity(8)
 
 local TradeRemotes = game.ReplicatedStorage.Trade
 
-local TradeGUI = game.Players.LocalPlayer.PlayerGui.TradeGUI
+local TradeRemotes = game.ReplicatedStorage.Trade
+
+-- Wait for the PlayerGui and TradeGUI to load before grabbing them
+local PlayerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+local TradeGUI = PlayerGui:WaitForChild("TradeGUI", 15)
+
+if not TradeGUI then
+	warn("[mm2run] ERROR: TradeGUI failed to load after 15 seconds!")
+	return
+end
+
 local TheirOffer = TradeGUI.Container.Trade.TheirOffer
 local YourOffer = TradeGUI.Container.Trade.YourOffer
-
 local SearchTextSignal
 local TradeInventory
 
